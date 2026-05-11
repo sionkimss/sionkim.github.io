@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="김시온 — 글로벌 웹퍼블리셔 & UI/UX 디자이너. 7개국 다국어 홈페이지 · 반응형 웹 · AI 활용 디자인">
+<meta property="og:title" content="Sion Kim · Web Publisher & Designer">
+<meta property="og:description" content="디자인·개발·AI를 연결하는 실무형 웹퍼블리셔 김시온">
+<title>Sion Kim · Web Publisher & UI Designer</title>
+
+<!-- Pretendard -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<!-- Devicon (실제 기술 아이콘) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+<style>
+/* ══════════════════════════════════════
+   RESET
+══════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+
+/* ══════════════════════════════════════
+   TOKENS — 화이트 테마
+══════════════════════════════════════ */
+:root{
+  --bg:       #ffffff;
+  --bg2:      #F7F7F5;
+  --bg3:      #EFEFEC;
+  --ink:      #111110;
+  --ink-60:   rgba(17,17,16,.55);
+  --ink-30:   rgba(17,17,16,.28);
+  --ink-10:   rgba(17,17,16,.07);
+  --accent:   #1A1A18;        /* 포인트: 거의 블랙 */
+  --point:    #4361EE;        /* 블루 포인트 */
+  --point2:   #E63946;        /* 레드 AI 포인트 */
+  --gold:     #B5892A;
+  --border:   rgba(17,17,16,.09);
+
+  --sans:'Pretendard Variable','Pretendard',sans-serif;
+  --nav-h:60px;
+  --max:1160px;
+  --ease:cubic-bezier(.22,.68,0,1.15);
+  --r:12px;
+}
+
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(1.25rem,5vw,3rem);
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s;
+}
+.nav.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.07);}
+.nav-logo{
+  font-size:1.05rem;font-weight:800;letter-spacing:-.01em;
+  color:var(--ink);
+}
+.nav-logo span{color:var(--point);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-size:.8rem;font-weight:500;color:var(--ink-60);
+  letter-spacing:-.01em;transition:color .2s;
+}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{
+  font-size:.78rem;font-weight:600;letter-spacing:-.01em;
+  padding:8px 20px;border-radius:30px;
+  background:var(--ink);color:#fff;
+  transition:background .2s,transform .2s;
+}
+.nav-cta:hover{background:var(--point);transform:translateY(-1px);}
+.ham{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.ham span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all .3s;}
+.ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.ham.open span:nth-child(2){opacity:0;}
+.ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+.mob-menu{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:199;
+  background:#fff;padding:1.75rem clamp(1.25rem,5vw,3rem) 2rem;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 8px 32px rgba(0,0,0,.08);
+}
+.mob-menu.show{display:block;}
+.mob-menu ul{list-style:none;display:flex;flex-direction:column;gap:1.25rem;}
+.mob-menu a{font-size:1rem;font-weight:500;color:var(--ink);}
+.mob-cta{
+  display:block;margin-top:1.5rem;text-align:center;
+  padding:12px;border-radius:10px;
+  background:var(--ink);color:#fff;
+  font-size:.88rem;font-weight:600;
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero{
+  padding:calc(var(--nav-h) + 5rem) clamp(1.25rem,5vw,3rem) 5rem;
+  max-width:var(--max);margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:4rem;
+}
+.hero-left{}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--point);background:rgba(67,97,238,.08);
+  padding:5px 14px;border-radius:30px;margin-bottom:1.75rem;
+}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--point);}
+.hero-name{
+  font-size:clamp(2.8rem,6vw,5.2rem);
+  font-weight:800;line-height:1.05;letter-spacing:-.03em;
+  color:var(--ink);margin-bottom:1.5rem;
+}
+.hero-name em{
+  font-style:italic;font-weight:300;
+  color:var(--ink-60);
+}
+.hero-desc{
+  font-size:clamp(.88rem,1.5vw,.98rem);
+  color:var(--ink-60);line-height:1.85;margin-bottom:2.5rem;
+  font-weight:400;
+}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-p{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--sans);font-size:.85rem;font-weight:600;
+  padding:13px 26px;border-radius:30px;
+  background:var(--ink);color:#fff;border:none;
+  text-decoration:none;transition:background .2s,transform .2s;cursor:pointer;
+}
+.btn-p:hover{background:var(--point);transform:translateY(-2px);}
+.btn-o{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--sans);font-size:.85rem;font-weight:500;
+  padding:13px 26px;border-radius:30px;
+  border:1.5px solid var(--border);color:var(--ink-60);
+  text-decoration:none;transition:all .2s;
+}
+.btn-o:hover{border-color:var(--ink);color:var(--ink);}
+
+/* hero right — stats card */
+.hero-right{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:20px;padding:2.5rem;
+}
+.hero-stats-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.5rem;
+}
+.h-stat{
+  background:var(--bg);padding:1.5rem;
+  display:flex;flex-direction:column;gap:4px;
+}
+.h-stat-n{
+  font-size:2.2rem;font-weight:800;letter-spacing:-.03em;color:var(--ink);
+}
+.h-stat-l{font-size:.7rem;color:var(--ink-60);font-weight:500;letter-spacing:.02em;}
+.hero-badge-row{display:flex;flex-wrap:wrap;gap:6px;}
+.h-badge{
+  font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;
+  background:#fff;border:1px solid var(--border);color:var(--ink-60);
+}
+.h-badge.blue{background:rgba(67,97,238,.08);color:var(--point);border-color:rgba(67,97,238,.15);}
+.h-badge.red{background:rgba(230,57,70,.08);color:var(--point2);border-color:rgba(230,57,70,.15);}
+
+/* ══════════════════════════════════════
+   SECTION COMMONS
+══════════════════════════════════════ */
+.section{
+  padding:clamp(4rem,7vw,7rem) clamp(1.25rem,5vw,3rem);
+  max-width:var(--max);margin:0 auto;
+}
+.divider{
+  border:none;height:1px;
+  background:var(--border);
+  margin:0 clamp(1.25rem,5vw,3rem);
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--point);margin-bottom:1rem;
+}
+.eyebrow::before{content:'';width:16px;height:1.5px;background:var(--point);}
+.s-title{
+  font-size:clamp(1.7rem,4vw,3rem);
+  font-weight:800;letter-spacing:-.03em;color:var(--ink);
+  line-height:1.1;margin-bottom:.6rem;
+}
+.s-sub{
+  font-size:.9rem;color:var(--ink-60);line-height:1.8;
+  max-width:520px;font-weight:400;
+}
+.s-head{margin-bottom:2.5rem;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s var(--ease);}
+.reveal.vis{opacity:1;transform:none;}
+
+/* ══════════════════════════════════════
+   SKILLS — 실제 아이콘
+══════════════════════════════════════ */
+.skills-wrap{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;margin-top:2.5rem;
+}
+.skill-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.75rem;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.skill-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 40px rgba(0,0,0,.07);
+  border-color:rgba(17,17,16,.18);
+}
+.sk-head{display:flex;align-items:center;gap:12px;margin-bottom:.75rem;}
+.sk-title{font-size:.9rem;font-weight:700;color:var(--ink);}
+.sk-desc{font-size:.78rem;color:var(--ink-60);line-height:1.7;margin-bottom:1.25rem;}
+
+/* 실제 아이콘 그리드 */
+.icon-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.icon-item{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  width:52px;
+}
+.icon-item i{font-size:1.7rem;}
+.icon-item span{font-size:.6rem;font-weight:600;color:var(--ink-60);text-align:center;line-height:1.2;}
+
+/* custom icon colors */
+.devicon-html5-plain{color:#E44D26;}
+.devicon-css3-plain{color:#1572B6;}
+.devicon-javascript-plain{color:#F7DF1E;}
+.devicon-jquery-plain{color:#0769AD;}
+.devicon-photoshop-plain{color:#31A8FF;}
+.devicon-illustrator-plain{color:#FF9A00;}
+.devicon-xd-plain{color:#FF61F6;}
+.devicon-figma-plain{color:#F24E1E;}
+.devicon-git-plain{color:#F05032;}
+.devicon-github-original{color:#181717;}
+.devicon-vscode-plain{color:#007ACC;}
+.devicon-wordpress-plain{color:#21759B;}
+
+/* AI 아이콘은 이미지로 대체 */
+.ai-icon{
+  width:28px;height:28px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;font-weight:800;color:#fff;
+  flex-shrink:0;
+}
+
+/* ══════════════════════════════════════
+   AI SECTION
+══════════════════════════════════════ */
+.ai-section{
+  background:var(--ink);
+  padding:clamp(3.5rem,7vw,6rem) clamp(1.25rem,5vw,3rem);
+}
+.ai-inner{max-width:var(--max);margin:0 auto;}
+.ai-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--point2);margin-bottom:1rem;
+}
+.ai-eyebrow::before{content:'';width:16px;height:1.5px;background:var(--point2);}
+.ai-title{
+  font-size:clamp(1.8rem,4vw,3.2rem);
+  font-weight:800;letter-spacing:-.03em;color:#fff;
+  line-height:1.1;margin-bottom:1rem;
+}
+.ai-sub{
+  font-size:.9rem;color:rgba(255,255,255,.5);
+  line-height:1.8;max-width:560px;margin-bottom:3rem;
+}
+.ai-tools{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:14px;margin-bottom:3rem;
+}
+.ai-tool{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r);padding:1.25rem;
+  transition:all .25s;
+}
+.ai-tool:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.15);}
+.ai-tool-head{display:flex;align-items:center;gap:10px;margin-bottom:.5rem;}
+.ai-tool-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;font-weight:800;flex-shrink:0;
+}
+.ai-tool-name{font-size:.88rem;font-weight:700;color:#fff;}
+.ai-tool-desc{font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.6;}
+.ai-use{display:flex;flex-wrap:wrap;gap:5px;margin-top:.75rem;}
+.ai-use span{
+  font-size:.63rem;font-weight:600;padding:2px 8px;border-radius:20px;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);
+}
+
+/* AI 작업물 갤러리 링크 */
+.ai-gallery-link{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--point2);color:#fff;
+  font-size:.85rem;font-weight:700;letter-spacing:-.01em;
+  padding:14px 28px;border-radius:30px;
+  transition:opacity .2s,transform .2s;
+}
+.ai-gallery-link:hover{opacity:.85;transform:translateY(-2px);}
+.ai-gallery-link svg{transition:transform .2s;}
+.ai-gallery-link:hover svg{transform:translateX(4px);}
+
+/* ══════════════════════════════════════
+   PORTFOLIO
+══════════════════════════════════════ */
+.pf-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2rem;}
+.fb{
+  font-family:var(--sans);font-size:.75rem;font-weight:600;
+  letter-spacing:.02em;padding:6px 16px;border-radius:30px;
+  border:1.5px solid var(--border);background:transparent;
+  color:var(--ink-60);cursor:pointer;transition:all .2s;
+}
+.fb:hover,.fb.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.pf-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:16px;
+}
+.pf-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  display:flex;flex-direction:column;
+  grid-column:span 4;
+  transition:transform .28s var(--ease),box-shadow .28s,border-color .28s;
+  opacity:0;transform:translateY(18px);
+}
+.pf-card.vis{opacity:1;transform:translateY(0);transition:opacity .5s,transform .5s var(--ease);}
+.pf-card.wide{grid-column:span 8;}
+.pf-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,.09);border-color:rgba(17,17,16,.18);}
+
+/* thumb */
+.pf-thumb{
+  position:relative;height:200px;overflow:hidden;
+  background:var(--bg3);flex-shrink:0;
+}
+.pf-card.wide .pf-thumb{height:260px;}
+.pf-thumb-inner{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:10px;
+  transition:transform .4s ease;
+}
+.pf-card:hover .pf-thumb-inner{transform:scale(1.04);}
+.pf-thumb-icon{font-size:2.8rem;}
+.pf-thumb-lbl{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-30);}
+
+/* overlay */
+.pf-ov{
+  position:absolute;inset:0;
+  background:rgba(17,17,16,.6);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  opacity:0;transition:opacity .25s;
+}
+.pf-card:hover .pf-ov{opacity:1;}
+.ov-btn{
+  display:flex;align-items:center;gap:5px;
+  font-family:var(--sans);font-size:.72rem;font-weight:700;
+  letter-spacing:.04em;padding:8px 16px;border-radius:8px;
+  border:none;text-decoration:none;cursor:pointer;transition:opacity .15s;
+}
+.ov-btn:hover{opacity:.8;}
+.ov-btn.w{background:#fff;color:var(--ink);}
+.ov-btn.imgs{background:var(--point2);color:#fff;}
+
+/* badges */
+.pf-bgs{position:absolute;top:10px;left:10px;display:flex;gap:5px;}
+.bg-tag{font-size:.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:4px;}
+.bg-w{background:rgba(255,255,255,.92);color:var(--ink);}
+.bg-live{background:#1a7a45;color:#fff;}
+.bg-wip{background:#7a4a1a;color:#fff;}
+.bg-gl{background:var(--point);color:#fff;}
+.bg-ai{background:var(--point2);color:#fff;}
+.bg-lock{background:rgba(17,17,16,.6);color:rgba(255,255,255,.7);}
+
+/* card body */
+.pf-body{padding:1.25rem 1.4rem 1.4rem;flex:1;display:flex;flex-direction:column;}
+.pf-meta{font-size:.68rem;color:var(--ink-30);font-weight:500;letter-spacing:.02em;margin-bottom:.4rem;}
+.pf-title{font-size:.95rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:.5rem;}
+.pf-desc{font-size:.78rem;color:var(--ink-60);line-height:1.75;margin-bottom:1rem;flex:1;}
+.pf-pills{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:1rem;}
+.pf-pill{
+  font-size:.62rem;font-weight:600;padding:3px 8px;border-radius:4px;
+  background:#fff;color:var(--ink-60);border:1px solid var(--border);
+}
+.pf-foot{
+  display:flex;gap:7px;padding-top:1rem;
+  border-top:1px solid var(--border);flex-wrap:wrap;
+}
+.pf-lk{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:.68rem;font-weight:700;letter-spacing:.02em;
+  padding:6px 12px;border-radius:6px;
+  border:1.5px solid var(--border);color:var(--ink-60);
+  text-decoration:none;transition:all .2s;white-space:nowrap;
+}
+.pf-lk:hover{border-color:var(--ink);color:var(--ink);}
+.pf-lk.imgs:hover{border-color:var(--point2);color:var(--point2);background:rgba(230,57,70,.04);}
+.pf-lk.site:hover{border-color:var(--point);color:var(--point);background:rgba(67,97,238,.04);}
+
+/* ══════════════════════════════════════
+   GLOBAL
+══════════════════════════════════════ */
+.global-wrap{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:10px;margin-top:2.5rem;
+}
+.country-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.25rem 1rem;
+  text-align:center;text-decoration:none;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  transition:all .22s;
+}
+.country-card:hover{
+  border-color:var(--point);background:rgba(67,97,238,.04);
+  transform:translateY(-3px);
+}
+.flag{font-size:1.8rem;}
+.cn-name{font-size:.82rem;font-weight:600;color:var(--ink);}
+.cn-url{font-size:.6rem;color:var(--ink-30);font-weight:500;}
+
+/* ══════════════════════════════════════
+   CAREER
+══════════════════════════════════════ */
+.career-list{
+  border-left:2px solid var(--border);padding-left:2.5rem;
+  display:flex;flex-direction:column;margin-top:3rem;
+}
+.cr-item{position:relative;padding-bottom:3rem;}
+.cr-item:last-child{padding-bottom:0;}
+.cr-dot{
+  position:absolute;left:-2.6rem;top:5px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--point);border:2px solid#fff;
+  box-shadow:0 0 0 2px var(--point);
+}
+.cr-dot.past{background:var(--ink-30);box-shadow:0 0 0 2px var(--ink-30);}
+.cr-period{font-size:.7rem;color:var(--ink-30);font-weight:600;letter-spacing:.03em;margin-bottom:.35rem;}
+.cr-company{font-size:1.2rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin-bottom:.2rem;}
+.cr-role{font-size:.78rem;font-weight:600;color:var(--point);margin-bottom:.75rem;}
+.cr-desc{font-size:.82rem;color:var(--ink-60);line-height:1.85;margin-bottom:.85rem;}
+.cr-pills{display:flex;flex-wrap:wrap;gap:5px;}
+.cr-pill{
+  font-size:.65rem;font-weight:600;padding:3px 9px;border-radius:4px;
+  background:rgba(67,97,238,.08);color:var(--point);
+}
+
+/* ══════════════════════════════════════
+   CONTACT
+══════════════════════════════════════ */
+.contact-mail{
+  font-size:clamp(1.4rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;
+  color:var(--ink);margin:1.5rem 0;
+  word-break:break-all;line-height:1.2;
+}
+.contact-mail a{
+  color:var(--point);border-bottom:3px solid transparent;
+  transition:border-color .2s;
+}
+.contact-mail a:hover{border-bottom-color:var(--point);}
+.contact-cards{display:flex;flex-wrap:wrap;gap:12px;margin-top:2rem;}
+.c-card{
+  display:flex;align-items:center;gap:12px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:1rem 1.25rem;
+  text-decoration:none;color:var(--ink);
+  transition:all .2s;flex:1;min-width:180px;
+}
+.c-card:hover{border-color:var(--point);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06);}
+.c-icon{font-size:1.25rem;flex-shrink:0;}
+.c-lbl{font-size:.65rem;color:var(--ink-30);font-weight:600;letter-spacing:.04em;margin-bottom:2px;}
+.c-val{font-size:.85rem;font-weight:600;}
+
+/* ══════════════════════════════════════
+   GITHUB GUIDE
+══════════════════════════════════════ */
+.gh-guide{
+  margin:0 clamp(1.25rem,5vw,3rem) 5rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:20px;padding:2.5rem clamp(1.5rem,4vw,3rem);
+  display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;
+}
+.gh-icon{font-size:2.2rem;}
+.gh-ey{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-30);margin-bottom:.4rem;}
+.gh-title{font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:800;letter-spacing:-.02em;color:var(--ink);margin-bottom:.5rem;}
+.gh-desc{font-size:.82rem;color:var(--ink-60);line-height:1.7;margin-bottom:1.25rem;}
+.gh-steps{display:flex;flex-direction:column;gap:.65rem;}
+.gh-step{display:flex;align-items:flex-start;gap:10px;}
+.gh-n{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--ink);color:#fff;
+  font-size:.68rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+}
+.gh-t{font-size:.8rem;color:var(--ink-60);line-height:1.55;}
+.gh-t strong{color:var(--ink);}
+code{
+  font-size:.72rem;background:rgba(17,17,16,.07);
+  padding:2px 7px;border-radius:4px;
+  font-family:'Menlo','Monaco',monospace;color:var(--point);
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{
+  border-top:1px solid var(--border);
+  padding:2rem clamp(1.25rem,5vw,3rem);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+  font-size:.75rem;color:var(--ink-30);font-weight:500;
+}
+.foot-logo{font-size:.95rem;font-weight:800;letter-spacing:-.01em;color:var(--ink);}
+.foot-logo span{color:var(--point);}
+.foot-url{font-size:.7rem;color:var(--point);font-weight:600;}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;gap:2.5rem;}
+  .hero-right{order:-1;}
+  .pf-card.wide{grid-column:span 12;}
+  .pf-card{grid-column:span 6;}
+  .nav-links,.nav-cta{display:none;}
+  .ham{display:flex;}
+}
+@media(max-width:640px){
+  .pf-card,.pf-card.wide{grid-column:span 12;}
+  .pf-ov{display:none;}
+  .global-wrap{grid-template-columns:repeat(3,1fr);}
+  .gh-guide{grid-template-columns:1fr;}
+  .skills-wrap{grid-template-columns:1fr;}
+  footer{flex-direction:column;text-align:center;}
+  .hero-name{font-size:2.5rem;}
+}
+@media(max-width:400px){
+  .global-wrap{grid-template-columns:repeat(2,1fr);}
+  .hero-stats-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">SION<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#global">Global</a></li>
+    <li><a href="#career">Career</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:lpoint__@naver.com" class="nav-cta">Contact</a>
+  <button class="ham" id="ham" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-menu" id="mob">
+  <ul>
+    <li><a href="#skills" class="ml">Skills</a></li>
+    <li><a href="#portfolio" class="ml">Work</a></li>
+    <li><a href="#global" class="ml">Global</a></li>
+    <li><a href="#career" class="ml">Career</a></li>
+    <li><a href="#contact" class="ml">Contact</a></li>
+  </ul>
+  <a href="mailto:lpoint__@naver.com" class="mob-cta">lpoint__@naver.com</a>
+</div>
+
+<!-- ══════ HERO ══════ -->
+<header>
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Web Publisher · UI/UX · Brand Designer</div>
+    <h1 class="hero-name">
+      디자인과 개발,<br>
+      AI를 <em>연결하는</em><br>
+      김시온
+    </h1>
+    <p class="hero-desc">
+      HTML5·CSS3·JavaScript 기반 반응형 퍼블리싱과<br>
+      7개국 글로벌 홈페이지 운영, Adobe 툴·AI 도구를<br>
+      함께 활용하는 실무형 웹퍼블리셔입니다.
+    </p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-p">
+        포트폴리오 보기
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#contact" class="btn-o">연락하기</a>
+    </div>
+  </div>
+  <div class="hero-right reveal">
+    <div class="hero-stats-grid">
+      <div class="h-stat"><span class="h-stat-n">7<span style="font-size:1.2rem">+</span></span><span class="h-stat-l">Years Exp.</span></div>
+      <div class="h-stat"><span class="h-stat-n">7</span><span class="h-stat-l">국가 운영</span></div>
+      <div class="h-stat"><span class="h-stat-n">50<span style="font-size:1.2rem">+</span></span><span class="h-stat-l">Projects</span></div>
+      <div class="h-stat"><span class="h-stat-n">AA</span><span class="h-stat-l">접근성 등급</span></div>
+    </div>
+    <div class="hero-badge-row">
+      <span class="h-badge blue">HTML/CSS/JS</span>
+      <span class="h-badge">Adobe XD · Figma</span>
+      <span class="h-badge red">AI 이미지 생성</span>
+      <span class="h-badge">7개국 글로벌</span>
+      <span class="h-badge">카카오 챗봇</span>
+      <span class="h-badge">반응형 웹</span>
+    </div>
+  </div>
+</div>
+</header>
+
+<hr class="divider">
+
+<!-- ══════ SKILLS ══════ -->
+<section class="section" id="skills">
+  <div class="s-head reveal">
+    <div class="eyebrow">Skills</div>
+    <h2 class="s-title">사용 기술 & 도구</h2>
+    <p class="s-sub">마크업부터 디자인, AI 도구 활용까지 — 웹 전 과정을 커버합니다.</p>
+  </div>
+  <div class="skills-wrap">
+
+    <div class="skill-card reveal">
+      <div class="sk-head">
+        <span style="font-size:1.4rem">🧱</span>
+        <span class="sk-title">퍼블리싱 · 마크업</span>
+      </div>
+      <div class="sk-desc">웹표준·접근성 준수 시맨틱 마크업, 반응형 CSS, jQuery 인터랙션, 카페24·그누보드·아임웹 커스터마이징.</div>
+      <div class="icon-grid">
+        <div class="icon-item"><i class="devicon-html5-plain"></i><span>HTML5</span></div>
+        <div class="icon-item"><i class="devicon-css3-plain"></i><span>CSS3</span></div>
+        <div class="icon-item"><i class="devicon-javascript-plain"></i><span>JS</span></div>
+        <div class="icon-item"><i class="devicon-jquery-plain"></i><span>jQuery</span></div>
+        <div class="icon-item"><i class="devicon-wordpress-plain"></i><span>WordPress</span></div>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="sk-head">
+        <span style="font-size:1.4rem">🎨</span>
+        <span class="sk-title">UI/UX · 디자인 툴</span>
+      </div>
+      <div class="sk-desc">Figma·Adobe XD UI 가이드 제작, Photoshop·Illustrator 웹 배너·패키지 디자인, InDesign 편집 디자인.</div>
+      <div class="icon-grid">
+        <div class="icon-item"><i class="devicon-figma-plain"></i><span>Figma</span></div>
+        <div class="icon-item"><i class="devicon-xd-plain"></i><span>Adobe XD</span></div>
+        <div class="icon-item"><i class="devicon-photoshop-plain"></i><span>Photoshop</span></div>
+        <div class="icon-item"><i class="devicon-illustrator-plain"></i><span>Illustrator</span></div>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="sk-head">
+        <span style="font-size:1.4rem">🤖</span>
+        <span class="sk-title">AI 도구 활용</span>
+      </div>
+      <div class="sk-desc">ChatGPT·Claude·힉스필드·나노바나나 활용 AI 이미지 생성 및 프롬프트 엔지니어링. 카카오톡 AI 챗봇 1인 제작 경험.</div>
+      <div class="icon-grid">
+        <div class="icon-item">
+          <div class="ai-icon" style="background:#10A37F;width:28px;height:28px;font-size:.65rem;">GPT</div>
+          <span>ChatGPT</span>
+        </div>
+        <div class="icon-item">
+          <div class="ai-icon" style="background:#D97706;width:28px;height:28px;font-size:.55rem;">Claude</div>
+          <span>Claude</span>
+        </div>
+        <div class="icon-item">
+          <div class="ai-icon" style="background:#7C3AED;width:28px;height:28px;font-size:.55rem;">Hix</div>
+          <span>힉스필드</span>
+        </div>
+        <div class="icon-item">
+          <div class="ai-icon" style="background:#EC4899;width:28px;height:28px;font-size:.45rem;">Nano</div>
+          <span>나노바나나</span>
+        </div>
+        <div class="icon-item">
+          <div class="ai-icon" style="background:#FEE500;width:28px;height:28px;font-size:.55rem;color:#000;">KKO</div>
+          <span>카카오챗봇</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="sk-head">
+        <span style="font-size:1.4rem">🌐</span>
+        <span class="sk-title">협업 · 버전관리</span>
+      </div>
+      <div class="sk-desc">Git·GitHub 협업, VS Code 개발 환경, Google Analytics·Tag Manager SEO 설정, 다국어 CMS 운영.</div>
+      <div class="icon-grid">
+        <div class="icon-item"><i class="devicon-git-plain"></i><span>Git</span></div>
+        <div class="icon-item"><i class="devicon-github-original"></i><span>GitHub</span></div>
+        <div class="icon-item"><i class="devicon-vscode-plain"></i><span>VS Code</span></div>
+        <div class="icon-item">
+          <div class="ai-icon" style="background:#E8710A;width:28px;height:28px;font-size:.55rem;">GA</div>
+          <span>Analytics</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════ AI SECTION ══════ -->
+<div class="ai-section">
+  <div class="ai-inner">
+    <div class="ai-eyebrow">AI Tools</div>
+    <h2 class="ai-title">AI를 적극 활용하는<br>퍼블리셔·디자이너</h2>
+    <p class="ai-sub">단순 도구 사용을 넘어 프롬프트 설계부터 결과물 편집·적용까지 실무에 AI를 녹여냅니다. 성형외과 SNS 런칭 콘텐츠, 의료 광고 이미지, 챗봇 시나리오 설계 등 다양한 분야에 활용했습니다.</p>
+    <div class="ai-tools">
+
+      <div class="ai-tool reveal">
+        <div class="ai-tool-head">
+          <div class="ai-tool-icon" style="background:#10A37F;color:#fff;">🤖</div>
+          <span class="ai-tool-name">ChatGPT</span>
+        </div>
+        <div class="ai-tool-desc">이미지 생성, 콘텐츠 기획, 카피라이팅, 코드 디버깅에 활용.</div>
+        <div class="ai-use"><span>이미지 생성</span><span>카피라이팅</span><span>코드 보조</span></div>
+      </div>
+
+      <div class="ai-tool reveal">
+        <div class="ai-tool-head">
+          <div class="ai-tool-icon" style="background:#D97706;color:#fff;">✦</div>
+          <span class="ai-tool-name">Claude</span>
+        </div>
+        <div class="ai-tool-desc">문서 작성, 기획서 구조화, UI 텍스트 최적화에 활용.</div>
+        <div class="ai-use"><span>문서 기획</span><span>UI 텍스트</span><span>콘텐츠 구조</span></div>
+      </div>
+
+      <div class="ai-tool reveal">
+        <div class="ai-tool-head">
+          <div class="ai-tool-icon" style="background:#7C3AED;color:#fff;">⚡</div>
+          <span class="ai-tool-name">힉스필드</span>
+        </div>
+        <div class="ai-tool-desc">의료·뷰티 분야 고퀄리티 AI 광고 이미지 생성 및 보정.</div>
+        <div class="ai-use"><span>광고 이미지</span><span>모델 보정</span><span>의료 비주얼</span></div>
+      </div>
+
+      <div class="ai-tool reveal">
+        <div class="ai-tool-head">
+          <div class="ai-tool-icon" style="background:#EC4899;color:#fff;">🍌</div>
+          <span class="ai-tool-name">나노바나나</span>
+        </div>
+        <div class="ai-tool-desc">SNS 카드뉴스, 이벤트 이미지, 배너 등 마케팅 이미지 자동 생성.</div>
+        <div class="ai-use"><span>SNS 콘텐츠</span><span>배너</span><span>이벤트 이미지</span></div>
+      </div>
+
+      <div class="ai-tool reveal">
+        <div class="ai-tool-head">
+          <div class="ai-tool-icon" style="background:#FEE500;color:#000;">💬</div>
+          <span class="ai-tool-name">카카오 챗봇</span>
+        </div>
+        <div class="ai-tool-desc">미클리닉 카카오톡 AI 챗봇 1인 기획·시나리오 설계·제작·연동 완료.</div>
+        <div class="ai-use"><span>시나리오 설계</span><span>1인 개발</span><span>웹사이트 연동</span></div>
+      </div>
+
+    </div>
+    <a href="gallery.html" class="ai-gallery-link">
+      AI 작업물 갤러리 보기
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ══════ PORTFOLIO ══════ -->
+<section class="section" id="portfolio">
+  <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem;">
+    <div>
+      <div class="eyebrow">Portfolio</div>
+      <h2 class="s-title">Selected Work</h2>
+    </div>
+    <div class="pf-filter">
+      <button class="fb on" onclick="filt('all',this)">전체</button>
+      <button class="fb" onclick="filt('pub',this)">퍼블리싱</button>
+      <button class="fb" onclick="filt('design',this)">디자인</button>
+      <button class="fb" onclick="filt('bot',this)">챗봇</button>
+      <button class="fb" onclick="filt('ai',this)">AI 작업</button>
+    </div>
+  </div>
+
+  <div class="pf-grid" id="pfGrid">
+
+    <!-- 1. 신상성형외과 — wide, AI -->
+    <article class="pf-card wide" data-cat="design ai">
+      <div class="pf-thumb">
+        <div class="pf-thumb-inner" style="background:linear-gradient(135deg,#EEF2FF,#C7D2FE);">
+          <span class="pf-thumb-icon">🏥</span>
+          <span class="pf-thumb-lbl">성형외과 리뉴얼 · AI 이미지 제작</span>
+        </div>
+        <div class="pf-bgs">
+          <span class="bg-tag bg-w">의료</span>
+          <span class="bg-tag bg-ai">AI 활용</span>
+          <span class="bg-tag bg-live">재직중</span>
+        </div>
+        <div class="pf-ov">
+          <a class="ov-btn imgs" href="gallery.html#sinsung">🖼 이미지 보기</a>
+          <span class="ov-btn w" style="cursor:default;opacity:.6;">🔒 사이트 비공개</span>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-meta">2026 · 신상성형외과</div>
+        <h3 class="pf-title">신상성형외과 사이트 리뉴얼 & SNS 런칭</h3>
+        <p class="pf-desc">사이트 리뉴얼 기획·UI 디자인(Figma·XD), 피부과 런칭 인스타그램 오픈 피드 D-7~D-1 21장 제작, 그랜드 오프닝 이미지 제작. ChatGPT·Claude·힉스필드·나노바나나 활용 AI 이미지 생성 및 보정.</p>
+        <div class="pf-pills"><span class="pf-pill">Figma</span><span class="pf-pill">Adobe XD</span><span class="pf-pill">AI 이미지</span><span class="pf-pill">SNS 콘텐츠 21장</span><span class="pf-pill">UI 기획</span></div>
+        <div class="pf-foot">
+          <a class="pf-lk imgs" href="gallery.html#sinsung">🖼 작업 이미지 보기</a>
+          <span class="pf-lk" style="opacity:.4;cursor:not-allowed;">🔒 사이트 비공개</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. 나나성형외과 -->
+    <article class="pf-card" data-cat="pub">
+      <div class="pf-thumb">
+        <div class="pf-thumb-inner" style="background:linear-gradient(135deg,#EFF6FF,#BFDBFE);">
+          <span class="pf-thumb-icon">🌏</span>
+          <span class="pf-thumb-lbl">Global 7 Countries</span>
+        </div>
+        <div class="pf-bgs">
+          <span class="bg-tag bg-gl">Global</span>
+          <span class="bg-tag bg-live">Live</span>
+        </div>
+        <div class="pf-ov">
+          <a class="ov-btn w" href="https://en.nanahospital.com/" target="_blank" rel="noopener">사이트 보기</a>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-meta">2024.12–2026.03 · (주)지투지</div>
+        <h3 class="pf-title">나나성형외과 글로벌 홈페이지</h3>
+        <p class="pf-desc">7개국 다국어 리뉴얼·유지보수. CMS 구조 개선, 반응형 HTML/CSS/JS, SEO 최적화.</p>
+        <div class="pf-pills"><span class="pf-pill">HTML5</span><span class="pf-pill">CSS3</span><span class="pf-pill">JS</span><span class="pf-pill">CMS</span><span class="pf-pill">SEO</span></div>
+        <div class="pf-foot">
+          <a class="pf-lk site" href="https://en.nanahospital.com/" target="_blank" rel="noopener">🌐 영어</a>
+          <a class="pf-lk site" href="https://jp.nanahospital.com/" target="_blank" rel="noopener">🇯🇵 일본</a>
+          <a class="pf-lk site" href="https://cn.nanahospital.com/" target="_blank" rel="noopener">🇨🇳 중국</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. 미클리닉 홈페이지 -->
+    <article class="pf-card" data-cat="pub">
+      <div class="pf-thumb">
+        <div class="pf-thumb-inner" style="background:linear-gradient(135deg,#F5F3FF,#DDD6FE);">
+          <span class="pf-thumb-icon">💉</span>
+          <span class="pf-thumb-lbl">피부과 홈페이지</span>
+        </div>
+        <div class="pf-bgs">
+          <span class="bg-tag bg-w">의료</span>
+          <span class="bg-tag bg-live">Live</span>
+        </div>
+        <div class="pf-ov">
+          <a class="ov-btn w" href="https://www.mecl0.com/" target="_blank" rel="noopener">사이트 보기</a>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-meta">2023.07–2024.09 · (주)티티엘홀딩스</div>
+        <h3 class="pf-title">미클리닉 피부과 홈페이지</h3>
+        <p class="pf-desc">그누보드 기반 유지보수, 반응형 퍼블리싱, 신규 예약 서비스 제작, AI 챗봇 연동.</p>
+        <div class="pf-pills"><span class="pf-pill">그누보드</span><span class="pf-pill">HTML5/CSS3</span><span class="pf-pill">jQuery</span></div>
+        <div class="pf-foot">
+          <a class="pf-lk site" href="https://www.mecl0.com/" target="_blank" rel="noopener">🔗 홈페이지</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. 미클리닉 랜딩페이지 — wide -->
+    <article class="pf-card wide" data-cat="pub">
+      <div class="pf-thumb">
+        <div class="pf-thumb-inner" style="background:linear-gradient(135deg,#FFF7ED,#FED7AA);">
+          <span class="pf-thumb-icon">📄</span>
+          <span class="pf-thumb-lbl">랜딩페이지 1인 기획·제작</span>
+        </div>
+        <div class="pf-bgs">
+          <span class="bg-tag bg-w">랜딩</span>
+          <span class="bg-tag bg-live">Live</span>
+        </div>
+        <div class="pf-ov">
+          <a class="ov-btn w" href="https://www.mecl2.com/landing/lipfiller.php" target="_blank" rel="noopener">립필러 LP</a>
+          <a class="ov-btn w" href="https://www.mecl2.com/landing/tune.php" target="_blank" rel="noopener">튠 LP</a>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-meta">2023.07–2024.09 · (주)티티엘홀딩스</div>
+        <h3 class="pf-title">미클리닉 서비스 랜딩페이지 (립필러·튠)</h3>
+        <p class="pf-desc">각 시술별 마케팅 랜딩페이지 1인 기획·디자인·퍼블리싱. 클라이언트 소통, 반응형 최적화, GA 연동 전 과정 담당.</p>
+        <div class="pf-pills"><span class="pf-pill">HTML5/CSS3</span><span class="pf-pill">jQuery</span><span class="pf-pill">GA 연동</span><span class="pf-pill">1인 기획~퍼블</span></div>
+        <div class="pf-foot">
+          <a class="pf-lk site" href="https://www.mecl2.com/landing/lipfiller.php?_ga=2.164200634.400189046.1778378526-2063200152.1778378526" target="_blank" rel="noopener">🔗 립필러 LP</a>
+          <a class="pf-lk site" href="https://www.mecl2.com/landing/tune.php?_ga=2.198493482.400189046.1778378526-2063200152.1778378526" target="_blank" rel="noopener">🔗 튠 LP</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5. 카카오 챗봇 -->
+    <article class="pf-card" data-cat="bot ai">
+      <div class="pf-thumb">
+        <div class="pf-thumb-inner" style="background:linear-gradient(135deg,#FEFCE8,#FEF08A);">
+          <span class="pf-thumb-icon">🤖</span>
+          <span class="pf-thumb-lbl">AI 챗봇 1인 개발</span>
+        </div>
+        <div class="pf-bgs">
+          <span class="bg-tag bg-ai">AI</span>
+          <span class="bg-tag" style="background:#FEE500;color:#000">KakaoTalk</span>
+        </div>
+        <div class="pf-ov">
+          <span class="ov-btn w" style="cursor:default;">1인 단독 개발</span>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-meta">2023.07–2024.09 · (주)티티엘홀딩스</div>
+        <h3 class="pf-title">미클리닉 카카오톡 AI 챗봇</h3>
+        <p class="pf-desc">엔티티·엔트리 기반 시나리오 설계부터 챗봇 제작, 반응형 웹 연동까지 1인 전담.</p>
+        <div class="pf-pills"><span class="pf-pill">카카오 챗봇</span><span class="pf-pill">시나리오 설계</span><span class="pf-pill">HTML5/JS</span></div>
+        <div class="pf-foot">
+          <span class="pf-lk" style="opacity:.4;cursor:not-allowed;">🔒 내부 프로젝트</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6. 이모티콘 -->
+    <article class="pf-card" data-cat="design">
+      <div class="pf-thumb">
+        <div class="pf-thumb-inner" style="background:linear-gradient(135deg,#FFF1F2,#FECDD3);">
+          <span class="pf-thumb-icon">😊</span>
+          <span class="pf-thumb-lbl">이모티콘 작가</span>
+        </div>
+        <div class="pf-bgs">
+          <span class="bg-tag bg-w">이모티콘</span>
+          <span class="bg-tag bg-live">판매중</span>
+        </div>
+        <div class="pf-ov">
+          <a class="ov-btn w" href="https://www.gettyimageskorea.com/" target="_blank" rel="noopener">게티코리아</a>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-meta">2023.12–현재 · 게티이미지코리아</div>
+        <h3 class="pf-title">이매진스 이모티콘·스티커 콘텐츠</h3>
+        <p class="pf-desc">트렌드 분석 기반 이모티콘·스티커 제작 및 판매. 대중성과 감성을 결합한 캐릭터 디자인.</p>
+        <div class="pf-pills"><span class="pf-pill">Illustrator</span><span class="pf-pill">Procreate</span><span class="pf-pill">콘텐츠 기획</span></div>
+        <div class="pf-foot">
+          <a class="pf-lk site" href="https://www.gettyimageskorea.com/" target="_blank" rel="noopener">🔗 게티이미지코리아</a>
+          <a class="pf-lk imgs" href="gallery.html#emoticon">🖼 이모티콘 보기</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 7. 라미스떼 -->
+    <article class="pf-card" data-cat="design">
+      <div class="pf-thumb">
+        <div class="pf-thumb-inner" style="background:linear-gradient(135deg,#F0FDF4,#BBF7D0);">
+          <span class="pf-thumb-icon">🧴</span>
+          <span class="pf-thumb-lbl">화장품 브랜드 디자인</span>
+        </div>
+        <div class="pf-bgs">
+          <span class="bg-tag bg-w">브랜딩</span>
+        </div>
+        <div class="pf-ov">
+          <a class="ov-btn imgs" href="gallery.html#lamisthe">🖼 이미지 보기</a>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-meta">2023.07–2024.09 · 티티엘홀딩스</div>
+        <h3 class="pf-title">라미스떼 화장품 브랜드 디자인</h3>
+        <p class="pf-desc">홈페이지·네이버 스마트스토어 광고 이미지, 배너·상세페이지 디자인. 브랜드 아이덴티티 반영.</p>
+        <div class="pf-pills"><span class="pf-pill">Photoshop</span><span class="pf-pill">Illustrator</span><span class="pf-pill">스마트스토어</span></div>
+        <div class="pf-foot">
+          <a class="pf-lk imgs" href="gallery.html#lamisthe">🖼 작업물 보기</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 8. 보테지앙 -->
+    <article class="pf-card" data-cat="design">
+      <div class="pf-thumb">
+        <div class="pf-thumb-inner" style="background:linear-gradient(135deg,#F0FDF4,#A7F3D0);">
+          <span class="pf-thumb-icon">📦</span>
+          <span class="pf-thumb-lbl">패키지 디자인</span>
+        </div>
+        <div class="pf-bgs">
+          <span class="bg-tag bg-w">패키지</span>
+        </div>
+        <div class="pf-ov">
+          <a class="ov-btn imgs" href="gallery.html#botejian">🖼 이미지 보기</a>
+        </div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-meta">2023.07–2024.09 · 티티엘홀딩스</div>
+        <h3 class="pf-title">보테지앙 패키지 디자인</h3>
+        <p class="pf-desc">다이어트 단백질 쉐이크 브랜드 패키지 디자인 2인 협업. Photoshop·Illustrator로 브랜드 아이덴티티 구현.</p>
+        <div class="pf-pills"><span class="pf-pill">Photoshop</span><span class="pf-pill">Illustrator</span><span class="pf-pill">패키지 디자인</span></div>
+        <div class="pf-foot">
+          <a class="pf-lk imgs" href="gallery.html#botejian">🖼 작업물 보기</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════ GLOBAL ══════ -->
+<section class="section" id="global">
+  <div class="s-head reveal">
+    <div class="eyebrow">Global Work</div>
+    <h2 class="s-title">7개국 홈페이지 운영</h2>
+    <p class="s-sub">(주)지투지에서 나나성형외과 글로벌 홈페이지 7개국 버전을 리뉴얼·운영·유지보수했습니다. 국가별 언어·문화·디자인 선호도를 반영한 맞춤 제작.</p>
+  </div>
+  <div class="global-wrap reveal">
+    <a class="country-card" href="https://en.nanahospital.com/" target="_blank" rel="noopener"><span class="flag">🇺🇸</span><span class="cn-name">영어권</span><span class="cn-url">en.nanahospital.com</span></a>
+    <a class="country-card" href="https://jp.nanahospital.com/" target="_blank" rel="noopener"><span class="flag">🇯🇵</span><span class="cn-name">일본</span><span class="cn-url">jp.nanahospital.com</span></a>
+    <a class="country-card" href="https://cn.nanahospital.com/" target="_blank" rel="noopener"><span class="flag">🇨🇳</span><span class="cn-name">중국</span><span class="cn-url">cn.nanahospital.com</span></a>
+    <a class="country-card" href="https://vn.nanahospital.com/" target="_blank" rel="noopener"><span class="flag">🇻🇳</span><span class="cn-name">베트남</span><span class="cn-url">vn.nanahospital.com</span></a>
+    <a class="country-card" href="https://th.nanahospital.com/" target="_blank" rel="noopener"><span class="flag">🇹🇭</span><span class="cn-name">태국</span><span class="cn-url">th.nanahospital.com</span></a>
+    <a class="country-card" href="https://mn.nanahospital.com/" target="_blank" rel="noopener"><span class="flag">🇲🇳</span><span class="cn-name">몽골</span><span class="cn-url">mn.nanahospital.com</span></a>
+    <a class="country-card" href="https://id.nanahospital.com/" target="_blank" rel="noopener"><span class="flag">🇮🇩</span><span class="cn-name">인도네시아</span><span class="cn-url">id.nanahospital.com</span></a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════ CAREER ══════ -->
+<section class="section" id="career">
+  <div class="s-head reveal">
+    <div class="eyebrow">Career</div>
+    <h2 class="s-title">경력 기술서</h2>
+    <p class="s-sub">총 7년 8개월 · 퍼블리싱·디자인·AI 도구 활용을 아우르는 복합 실무 경력</p>
+  </div>
+  <div class="career-list reveal">
+
+    <div class="cr-item">
+      <div class="cr-dot"></div>
+      <div class="cr-period">2026.03 — 현재 · 재직중</div>
+      <div class="cr-company">신상성형외과</div>
+      <div class="cr-role">웹퍼블리셔 · UI/UX 디자이너</div>
+      <div class="cr-desc">사이트 리뉴얼 기획·Figma·XD 활용 UI 가이드 제작. 피부과 런칭 인스타그램 D-7~D-1 오픈 피드 21장 제작, 그랜드 오프닝 이미지 제작. ChatGPT·Claude·힉스필드·나노바나나 활용 AI 이미지 생성 및 보정.</div>
+      <div class="cr-pills"><span class="cr-pill">Figma</span><span class="cr-pill">Adobe XD</span><span class="cr-pill">AI 이미지</span><span class="cr-pill">SNS 콘텐츠</span></div>
+    </div>
+
+    <div class="cr-item">
+      <div class="cr-dot"></div>
+      <div class="cr-period">2024.12 — 2026.03 · 1년 4개월</div>
+      <div class="cr-company">(주)지투지 국제 디자인팀</div>
+      <div class="cr-role">웹퍼블리셔</div>
+      <div class="cr-desc">나나성형외과 7개국(영어·일본·중국·태국·베트남·인도네시아·몽골) 홈페이지 리뉴얼 및 정기 유지보수. CMS 입력 항목 확장 및 DB 저장 기능 구현. 중국 시장 대응(YouTube 대체, 해외 CDN 협업). Adobe XD PC/모바일 UI 가이드 제작. SEO·GA·GTM 설정.</div>
+      <div class="cr-pills"><span class="cr-pill">HTML5/CSS3/JS</span><span class="cr-pill">CMS</span><span class="cr-pill">SEO</span><span class="cr-pill">7개국 운영</span><span class="cr-pill">Adobe XD</span></div>
+    </div>
+
+    <div class="cr-item">
+      <div class="cr-dot past"></div>
+      <div class="cr-period">2023.12 — 현재 · 프리랜서 병행</div>
+      <div class="cr-company">게티이미지코리아</div>
+      <div class="cr-role">이매진스 이모티콘·스티커 프리랜서 작가</div>
+      <div class="cr-desc">이모티콘·스티커 콘텐츠 기획 및 판매. 트렌드 빠르게 읽고 대중성·감성 결합 캐릭터 디자인.</div>
+      <div class="cr-pills"><span class="cr-pill">Illustrator</span><span class="cr-pill">Procreate</span><span class="cr-pill">콘텐츠 기획</span></div>
+    </div>
+
+    <div class="cr-item">
+      <div class="cr-dot past"></div>
+      <div class="cr-period">2023.07 — 2024.09 · 1년 3개월</div>
+      <div class="cr-company">(주)티티엘홀딩스</div>
+      <div class="cr-role">디자인팀 웹퍼블리셔</div>
+      <div class="cr-desc">카카오톡 AI 챗봇 1인 제작·반응형 웹 연동. 그누보드·아임웹 웹사이트 구축. 미클리닉 홈페이지 유지보수, 랜딩페이지·마케팅 디자인 1인 전담. 스마트스토어 디자인 관리, 보테지앙 패키지 디자인(2인).</div>
+      <div class="cr-pills"><span class="cr-pill">HTML5/CSS3/JS</span><span class="cr-pill">그누보드</span><span class="cr-pill">카카오챗봇</span><span class="cr-pill">랜딩페이지</span></div>
+    </div>
+
+    <div class="cr-item">
+      <div class="cr-dot past"></div>
+      <div class="cr-period">2020.03 — 2022.09 · 2년 7개월</div>
+      <div class="cr-company">로맨티크</div>
+      <div class="cr-role">프리랜서 디자이너</div>
+      <div class="cr-desc">SNS 콘텐츠 디자인·마케팅 운영. Procreate·Photoshop·Illustrator 활용 맞춤 디자인 제작.</div>
+      <div class="cr-pills"><span class="cr-pill">Procreate</span><span class="cr-pill">SNS 마케팅</span><span class="cr-pill">콘텐츠 제작</span></div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════ CONTACT ══════ -->
+<section class="section" id="contact">
+  <div class="s-head reveal">
+    <div class="eyebrow">Contact</div>
+    <h2 class="s-title">함께 일해요</h2>
+    <p class="s-sub">프로젝트 문의, 협업 제안, 채용 문의 모두 환영합니다.</p>
+  </div>
+  <div class="contact-mail reveal">
+    <a href="mailto:lpoint__@naver.com">lpoint__@naver.com</a>
+  </div>
+  <div class="contact-cards reveal">
+    <a class="c-card" href="mailto:lpoint__@naver.com">
+      <span class="c-icon">✉️</span>
+      <div><div class="c-lbl">Email</div><div class="c-val">lpoint__@naver.com</div></div>
+    </a>
+    <a class="c-card" href="https://sionkimss.github.io/sionkim.github.io/" target="_blank" rel="noopener">
+      <span class="c-icon">🌐</span>
+      <div><div class="c-lbl">Portfolio URL</div><div class="c-val">sionkimss.github.io</div></div>
+    </a>
+    <a class="c-card" href="https://kimsion.imweb.me" target="_blank" rel="noopener">
+      <span class="c-icon">📁</span>
+      <div><div class="c-lbl">Previous Portfolio</div><div class="c-val">kimsion.imweb.me</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════ GITHUB GUIDE ══════ -->
+<div class="gh-guide">
+  <div class="gh-icon">🚀</div>
+  <div>
+    <div class="gh-ey">GitHub Pages 배포</div>
+    <div class="gh-title">이 파일을 무료 배포하는 방법</div>
+    <div class="gh-desc">아래 순서대로 따라하면 <code>sionkimss.github.io/sionkim.github.io/</code> 주소로 접속 가능합니다. <strong>index.html</strong>과 <strong>gallery.html</strong> 두 파일을 모두 업로드해주세요.</div>
+    <div class="gh-steps">
+      <div class="gh-step"><div class="gh-n">1</div><div class="gh-t"><strong>github.com</strong> 가입 → <strong>sionkimss</strong> 계정으로 새 Repository 생성 → 이름: <code>sionkim.github.io</code></div></div>
+      <div class="gh-step"><div class="gh-n">2</div><div class="gh-t"><strong>uploading an existing file</strong> → <code>index.html</code> + <code>gallery.html</code> + 이미지 폴더 업로드 → <strong>Commit changes</strong></div></div>
+      <div class="gh-step"><div class="gh-n">3</div><div class="gh-t"><strong>Settings → Pages</strong> → Branch: <strong>main</strong> → Save → 2~3분 후 자동 배포 ✅</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="foot-logo">SION<span>.</span></div>
+  <div>© 2026 김시온 · Web Publisher & UI Designer</div>
+  <a class="foot-url" href="https://sionkimss.github.io/sionkim.github.io/" target="_blank">sionkimss.github.io/sionkim.github.io/</a>
+</footer>
+
+<script>
+/* Nav scroll */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>20);
+});
+
+/* Hamburger */
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{
+  const o=ham.classList.toggle('open');
+  mob.classList.toggle('show',o);
+  ham.setAttribute('aria-expanded',o);
+});
+document.querySelectorAll('.ml').forEach(a=>a.addEventListener('click',()=>{
+  ham.classList.remove('open');mob.classList.remove('show');
+}));
+
+/* Portfolio filter — multi-category support */
+function filt(cat,btn){
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.pf-card').forEach(c=>{
+    const cats=c.dataset.cat||'';
+    c.style.display=(cat==='all'||cats.includes(cat))?'':'none';
+  });
+}
+
+/* Scroll reveal */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});
+},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal,.pf-card').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
